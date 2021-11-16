@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/Emilurenius/drawerSearch/issues"
   },
-  "homepage": "https://github.com/Emilurenius/drawerSearch#readme"
+  "homepage": "https://github.com/Emilurenius/drawerSearch#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7"
+  }
 }
