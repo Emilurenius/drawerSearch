@@ -26,6 +26,8 @@ console.log(`${port} registered as server port`)
 
 app.use(cors()) // Making sure the browser can request more data after it is loaded on the client computer.
 
+app.use("/static", express.static("public"))
+
 app.get("/", (req, res) => {
     res.send("Hello world")
 })
