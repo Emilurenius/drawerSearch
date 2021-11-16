@@ -1,0 +1,19 @@
+{
+  "name": "drawersearch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js 3000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emilurenius/drawerSearch.git"
+  },
+  "author": "Emil Christiansen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Emilurenius/drawerSearch/issues"
+  },
+  "homepage": "https://github.com/Emilurenius/drawerSearch#readme"
+}
