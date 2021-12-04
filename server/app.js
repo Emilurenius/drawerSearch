@@ -29,7 +29,7 @@ app.use(cors()) // Making sure the browser can request more data after it is loa
 app.use("/static", express.static("public"))
 
 app.get("/", (req, res) => {
-    res.send("Hello world")
+    res.sendFile(path.join(__dirname, '/html/index.html'))
 })
 
 app.listen(port, () => console.log(`Listening on ${port}`))
