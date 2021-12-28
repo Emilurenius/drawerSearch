@@ -4,6 +4,25 @@ const app = express()
 const path = require("path")
 const fs = require("fs")
 const cors = require("cors")
+const mariadb = require('mariadb')
+
+const mariaDBPoolData = loadJSON('mariaDBPoolData.json')
+const  pool = mariadb.createPool(mariaDBPoolData)
+
+async function query(qstring) {
+    let conn
+    try {
+        conn = await pool.getConnection()
+        const res = await conn.query(qstring)
+        console.log(`Query : ${qstring}\nResponse : ${res}`)
+    } catch (err) {
+        throw err
+    } finally {
+        if (conn) return conn.end()
+    }
+}
+
+console.log(query('SELECT User from mysql.user;'))
 
 function loadJSON(filename) {
     const rawdata = fs.readFileSync(path.join(__dirname, filename))
