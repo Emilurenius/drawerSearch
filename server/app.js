@@ -9,20 +9,15 @@ const mariadb = require('mariadb')
 const mariaDBPoolData = loadJSON('mariaDBPoolData.json')
 const  pool = mariadb.createPool(mariaDBPoolData)
 
-async function query(qstring) {
-    let conn
-    try {
-        conn = await pool.getConnection()
-        const res = await conn.query(qstring)
-        console.log(`Query : ${qstring}\nResponse : ${res}`)
-    } catch (err) {
-        throw err
-    } finally {
-        if (conn) return conn.end()
-    }
+async function sqlQuery(qstring) {
+    let conn = await pool.getConnection()
+    return conn.query(qstring)
 }
 
-console.log(query('SELECT User from mysql.user;'))
+// sqlQuery('SELECT User from mysql.user;')
+//     .then(rows => {
+//         console.log(rows)
+//     })
 
 function loadJSON(filename) {
     const rawdata = fs.readFileSync(path.join(__dirname, filename))
@@ -49,6 +44,14 @@ app.use("/static", express.static("public"))
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, '/html/index.html'))
+})
+
+app.get('/sendQuery', (req, res) => {
+    sqlQuery(req.query.sqlQuery)
+        .then(data => {
+            res.send(data)
+            console.log(data)
+        })
 })
 
 app.listen(port, () => console.log(`Listening on ${port}`))
