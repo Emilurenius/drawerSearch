@@ -4,15 +4,6 @@ const app = express()
 const path = require("path")
 const fs = require("fs")
 const cors = require("cors")
-const mariadb = require('mariadb')
-
-const mariaDBPoolData = loadJSON('mariaDBPoolData.json')
-const  pool = mariadb.createPool(mariaDBPoolData)
-
-async function sqlQuery(qstring) {
-    let conn = await pool.getConnection()
-    return conn.query(qstring)
-}
 
 // sqlQuery('SELECT User from mysql.user;')
 //     .then(rows => {
@@ -44,14 +35,6 @@ app.use("/static", express.static("public"))
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, '/html/index.html'))
-})
-
-app.get('/sendQuery', (req, res) => {
-    sqlQuery(req.query.sqlQuery)
-        .then(data => {
-            res.send(data)
-            console.log(data)
-        })
 })
 
 app.listen(port, () => console.log(`Listening on ${port}`))
