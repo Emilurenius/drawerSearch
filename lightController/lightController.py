@@ -55,4 +55,5 @@ if __name__ == '__main__':
     strip.begin()
     
     while True:
-        strip.setPixelColor(pixelGrid[int(input('x: '))][int(input('y: '))], Color(255, 255, 255))
+        strip.setPixelColor(pixelGrid[int(input('x: '))][int(input('y: '))], Color(0,0,0) if input('enter for on, o+enter for off') == 'o' else Color(255,255,255))
+        strip.show()
