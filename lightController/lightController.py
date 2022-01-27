@@ -49,7 +49,7 @@ def drawerSearchMode(data):
     for k, v in data['activePixels'].items():
         xy = k.split('-')
         rgb = v['color'].split('-')
-        strip.setPixelColor(pixelGrid[int(xy[0])][int(xy[1])], Color(int(rgb[0]), rgb[1], rgb[2]))
+        strip.setPixelColor(pixelGrid[int(xy[0])][int(xy[1])], Color(int(rgb[0]), int(rgb[1]), int(rgb[2])))
     strip.show()
         
 modes = {
