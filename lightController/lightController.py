@@ -45,8 +45,18 @@ def getJSON(filePath):
                 triesCounter += 1
                 continue
 
+def saveJSON(data, filePath):
+    with open(filePath, 'w') as outfile:
+        json.dump(data, outfile, indent=4)
+
 def drawerSearchMode(data):
-    for k, v in data['activePixels'].items():
+    
+    i = 0
+    while i < LED_COUNT: # Clear LEDs first
+        strip.setPixelColor(i, Color(0,0,0))
+        i += 1
+    
+    for k, v in data['activePixels'].items(): # Turn on LEDs based on what data.json says
         xy = k.split('-')
         rgb = v['color'].split('-')
         strip.setPixelColor(pixelGrid[int(xy[0])][int(xy[1])], Color(int(rgb[0]), int(rgb[1]), int(rgb[2])))
@@ -62,8 +72,14 @@ if __name__ == '__main__':
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
     strip.begin()
     
+    prevData = {}
+    
     while True:
         #strip.setPixelColor(pixelGrid[int(input('x: '))][int(input('y: '))], Color(0,0,0) if input('enter for on, o+enter for off: ') == 'o' else Color(255,255,255))
         data = getJSON('./data.json')
-        mode = modes.get(data['mode'], None)
-        mode(data)
+        if data != prevData:
+            mode = modes.get(data['mode'], None)
+            mode(data)
+            prevData = data
+        
+        time.sleep(0.5)

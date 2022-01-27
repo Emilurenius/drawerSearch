@@ -1,0 +1,20 @@
+{
+    "0-0": {
+        "content": [
+            "Resistor-220ohm"
+        ],
+        "empty": false
+    },
+    "1-1": {
+        "content": [
+            "Resistor-1kohm"
+        ],
+        "empty": false
+    },
+    "2-2": {
+        "content": [
+            "Kondensator"
+        ],
+        "empty": true
+    }
+}

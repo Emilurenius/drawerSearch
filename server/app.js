@@ -20,7 +20,7 @@ function saveJSON(json, filename) {
     const stringified = JSON.stringify(json, null, 4)
     fs.writeFile(path.join(__dirname, filename), stringified, (err) => {
         if (err) throw err
-        console.log("Data written to file")
+        console.log(`Written to ${path.join(__dirname, filename)}:\n${stringified}`)
     })
 }
 
@@ -36,5 +36,27 @@ app.use("/static", express.static("public"))
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, '/html/index.html'))
 })
+
+app.get('/activateDrawer', (req, res) => {
+    data = loadJSON('../lightController/data.json')
+    data.mode = 'standard'
+    data.activePixels[req.query.pixelCoords] = {
+        'color': '0-255-0',
+        'created': Date.now(),
+        'deleteIn': 5000
+    }
+    saveJSON(data, '../lightController/data.json')
+})
+
+setInterval(() => {
+    data = loadJSON('../lightController/data.json')
+    for (const [k, v] of Object.entries(data.activePixels)) {
+        if (parseInt(v.created) + parseInt(v.deleteIn) < Date.now()) {
+            delete data.activePixels[k]
+            console.log(`deleted ${k}`)
+        }
+    }
+    saveJSON(data, '../lightController/data.json')
+}, 1000)
 
 app.listen(port, () => console.log(`Listening on ${port}`))

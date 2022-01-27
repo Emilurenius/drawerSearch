@@ -1,14 +1,4 @@
 {
     "mode": "standard",
-    "activePixels": {
-        "0-0": {
-            "color": "255-0-0"
-        },
-        "1-1": {
-            "color": "0-255-0"
-        },
-        "2-2": {
-            "color": "0-0-255"
-        }
-    }
+    "activePixels": {}
 }
