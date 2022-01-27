@@ -28,19 +28,16 @@ while temp < GRID_HEIGHT:
     pixelGrid.insert(0, tempList)
     temp += 1
 
-def getJSON(filename):
+def getJSON(filePath):
     triesCounter = 0
     while True:
         try:  # Try opening the json file, and check it
-            # with open(f'./json/{filename}.json', 'r') as JSON:
-            #     data = json.load(JSON)
-            # return data
-            file = open(filename)
+            file = open(filePath)
             data = json.load(file)
             file.close()
             return data
         except Exception as ex:  # If you can't open the json file, just try again
-            if triesCounter > 100:
+            if triesCounter > 99:
                 print(f'Exception has happened {triesCounter} times. Stopping script!')
                 raise Exception(ex)
             else:
@@ -48,6 +45,15 @@ def getJSON(filename):
                 triesCounter += 1
                 continue
 
+def drawerSearchMode(data):
+    for x in data['activePixels']:
+        xy = x.split('-')
+        strip.setPixelColor(pixelGrid[int(xy[0])][int(xy[1])], Color(255, 255, 255))
+        
+modes = {
+    'standard': drawerSearchMode
+}
+        
 if __name__ == '__main__':
 
     # Create NeoPixel object with appropriate configuration
@@ -55,5 +61,7 @@ if __name__ == '__main__':
     strip.begin()
     
     while True:
-        strip.setPixelColor(pixelGrid[int(input('x: '))][int(input('y: '))], Color(0,0,0) if input('enter for on, o+enter for off: ') == 'o' else Color(255,255,255))
-        strip.show()
+        #strip.setPixelColor(pixelGrid[int(input('x: '))][int(input('y: '))], Color(0,0,0) if input('enter for on, o+enter for off: ') == 'o' else Color(255,255,255))
+        data = getJSON('./data.json')
+        mode = modes.get(data['mode'], None)
+        mode(data)
