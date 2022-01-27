@@ -46,9 +46,10 @@ def getJSON(filePath):
                 continue
 
 def drawerSearchMode(data):
-    for x in data['activePixels']:
+    for k, v in data['activePixels'].items():
         xy = x.split('-')
-        strip.setPixelColor(pixelGrid[int(xy[0])][int(xy[1])], Color(255, 255, 255))
+        rgb = v['color'].split('-')
+        strip.setPixelColor(pixelGrid[int(xy[0])][int(xy[1])], Color(int(rgb[0]), rgb[1], rgb[2]))
     strip.show()
         
 modes = {
