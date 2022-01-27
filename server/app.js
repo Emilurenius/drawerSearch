@@ -46,6 +46,7 @@ app.get('/activateDrawer', (req, res) => {
         'deleteIn': 5000
     }
     saveJSON(data, '../lightController/data.json')
+    res.send("Data recieved")
 })
 
 setInterval(() => {
