@@ -5,11 +5,6 @@ const path = require("path")
 const fs = require("fs")
 const cors = require("cors")
 
-// sqlQuery('SELECT User from mysql.user;')
-//     .then(rows => {
-//         console.log(rows)
-//     })
-
 function loadJSON(filename) {
     const rawdata = fs.readFileSync(path.join(__dirname, filename))
     const data = JSON.parse(rawdata)
