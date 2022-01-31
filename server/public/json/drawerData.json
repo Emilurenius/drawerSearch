@@ -1,19 +1,28 @@
 {
     "0-0": {
-        "content": [
-            "Resistor-220ohm"
+        "searchTerms": [
+            "resistor",
+            "220",
+            "Ω",
+            "ohm"
         ],
+        "displayName": "220Ω Resistor",
         "empty": false
     },
     "1-1": {
-        "content": [
-            "Resistor-1kohm"
+        "searchTerms": [
+            "resistor",
+            "1k",
+            "1000",
+            "ohm",
+            "Ω"
         ],
+        "displayName": "1KΩ Resistor",
         "empty": false
     },
     "2-2": {
-        "content": [
-            "Kondensator"
+        "searchTerms": [
+            "kondensator"
         ],
         "empty": true
     }

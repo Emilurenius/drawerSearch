@@ -20,20 +20,52 @@ const ResultField = (props) => {
 }
 
 const SearchBar = (props) => {
-  const [results, setResults] = useState({})
+
+  const displayResults = (results, drawersData) => {
+    const resultsContainer = document.getElementById('resultsContainer')
+    resultsContainer.innerHTML = ''
+    for (let i=results.highest;i>0;i--) {
+      for (let item in results[i]) {
+        const container = document.createElement('div')
+        container.className = 'resultField'
+        const componentName = document.createElement('p')
+        componentName.innerHTML = drawersData[results[i][item]].displayName
+        container.appendChild(componentName)
+        resultsContainer.appendChild(container)
+      }
+    }
+  }
+
   const search = async (e) => {
-    const searchText = document.getElementById('searchText')
-    console.log(searchText.value)
-    searchText.value = ''
+    const searchBox = document.getElementById('searchText')
+    const searchText = searchBox.value.toLowerCase()
+    searchBox.value = ''
 
     const res = await fetch(url('/static/json/drawerData.json'))
     const drawersData = await res.json()
-    console.log(drawersData)
-    const data = {
-      'componentName': 'Component'
+    //console.log(drawersData)
+
+    let matchResults = {'highest': 0}
+    for (const [k, v] of Object.entries(drawersData)) {
+      let matches = 0
+
+      for (let i in v.searchTerms) {
+        if (searchText.includes(v.searchTerms[i])) {
+          matches ++
+        }
+      }
+
+      if (matches > matchResults.highest) {
+        matchResults.highest = matches
+      }
+
+      if (!(matches in matchResults)) {
+        matchResults[matches] = []
+      }
+      matchResults[matches].push(k)
     }
-    setResults((results) => data)
-    props.searchCallback(results)
+
+    displayResults(matchResults, drawersData)
   }
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -59,7 +91,7 @@ function App() {
     <div className="App">
       <p className='header'>Drawer search</p>
       <SearchBar searchCallback={searchCallback} />
-      <ResultField componentName={results.componentName} />
+      <div id='resultsContainer'></div>
     </div>
   );
 }
