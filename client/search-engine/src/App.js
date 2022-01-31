@@ -29,6 +29,7 @@ const SearchBar = (props) => {
         const container = document.createElement('div')
         container.className = 'resultField'
         const component = document.createElement('button')
+        component.className = 'button'
         component.onclick = (e) => {
           fetch(url(`/activateDrawer?pixelCoords=${results[i][item]}`))
         }
@@ -77,9 +78,9 @@ const SearchBar = (props) => {
     }
   }
   return (
-    <div>
-      <input type='text' placeholder='Søk her' id='searchText' onKeyDown={handleKeyDown}></input>
-      <button className='btnSubmit' onClick={search}>Søk</button>
+    <div className="searchField">
+      <input type='text' placeholder='Søk her' id='searchText' className='searchField' onKeyDown={handleKeyDown}></input>
+      <button className='btnSubmit' className='searchField' onClick={search}>Søk</button>
     </div>
   )
 }

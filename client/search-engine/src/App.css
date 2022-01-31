@@ -11,8 +11,12 @@ body {
   color: white
 }
 
-.resultField {
-  color: white;
-  background-color: #2c374d;
-  font-size: 20px;
+.searchField {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.button {
+  font-size: 30px;
+  margin: 10px;
 }
