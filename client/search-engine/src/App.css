@@ -1,0 +1,18 @@
+body {
+  background-color: #282c34;
+}
+
+.App {
+  text-align: center;
+  font-size: 30px
+}
+
+.header {
+  color: white
+}
+
+.resultField {
+  color: white;
+  background-color: #2c374d;
+  font-size: 20px;
+}
