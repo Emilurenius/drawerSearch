@@ -4,8 +4,8 @@ import './App.css';
 
 const url = (path) => {
   const origin = new URL(document.location).origin
-  //return `${origin}${path}`
-  return `http://172.16.2.108:3000${path}`
+  return `${origin}${path}`
+  //return `http://172.16.2.108:3000${path}`
 }
 
 const ResultField = (props) => {

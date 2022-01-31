@@ -26,10 +26,12 @@ console.log(`${port} registered as server port`)
 
 app.use(cors()) // Making sure the browser can request more data after it is loaded on the client computer.
 
+app.use(express.static(path.join(__dirname, 'index')))
+
 app.use("/static", express.static("public"))
 
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, '/html/index.html'))
+    res.sendFile(path.join(__dirname, 'index', 'index.html'))
 })
 
 app.get('/activateDrawer', (req, res) => {
