@@ -28,9 +28,12 @@ const SearchBar = (props) => {
       for (let item in results[i]) {
         const container = document.createElement('div')
         container.className = 'resultField'
-        const componentName = document.createElement('p')
-        componentName.innerHTML = drawersData[results[i][item]].displayName
-        container.appendChild(componentName)
+        const component = document.createElement('button')
+        component.onclick = (e) => {
+          fetch(url(`/activateDrawer?pixelCoords=${results[i][item]}`))
+        }
+        component.innerHTML = drawersData[results[i][item]].displayName
+        container.appendChild(component)
         resultsContainer.appendChild(container)
       }
     }
